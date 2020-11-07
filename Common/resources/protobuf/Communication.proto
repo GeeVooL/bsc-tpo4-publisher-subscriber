@@ -1,0 +1,43 @@
+syntax = "proto3";
+option java_package = "com.mdevv.tpo4.common.protobuf";
+option java_multiple_files = true;
+
+import "google/protobuf/any.proto";
+
+message SubscriberMessage {
+    enum Type {
+        REGISTER = 0;
+        SUBSCRIBE = 1;
+        UNSUBSCRIBE = 2;
+    }
+
+    Type type = 1;
+    string topic = 2;
+}
+
+message UpdateMessage {
+    enum Type {
+        TOPIC_CREATION = 0;
+        TOPIC_DELETION = 1;
+        MESSAGE = 2;
+    }
+
+    Type type = 1;
+    string topic = 2;
+    string message = 3;
+}
+
+message MessageWrapper {
+    google.protobuf.Any message = 2;
+}
+
+message ServerResponse {
+    enum Status {
+        OK = 0;
+        INVALID_REQUEST = 1;
+        NOT_FOUND = 2;
+    }
+
+    Status status = 1;
+    repeated string content = 2;
+}
